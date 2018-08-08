@@ -1,0 +1,1096 @@
+---
+title: "Code/Data"
+author: "Kristopher Nichols"
+date: "May 10, 2018"
+output: html_document
+---
+
+
+Plese excuse my awful code, most of this was written as I was first learning R. Also, please let me know if you find any missing data, graphs, or tables and I am happy to provide the code. 
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+```
+
+```{r}
+# Load All Weather Data
+
+Storm_Events_Details2004 <- read.csv("C:\\Users\\knich\\Desktop\\Weather Deatils Data\\StormEvents_details-ftp_v1.0_d2004_c20170717.csv.gz")
+Storm_Events_Details2005 <- read.csv("C:\\Users\\knich\\Desktop\\Weather Deatils Data\\StormEvents_details-ftp_v1.0_d2005_c20170717.csv.gz")
+Storm_Events_Details2006 <- read.csv("C:\\Users\\knich\\Desktop\\Weather Deatils Data\\StormEvents_details-ftp_v1.0_d2006_c20170717.csv.gz")
+Storm_Events_Details2007 <- read.csv("C:\\Users\\knich\\Desktop\\Weather Deatils Data\\StormEvents_details-ftp_v1.0_d2007_c20170717.csv.gz")
+Storm_Events_Details2008 <- read.csv("C:\\Users\\knich\\Desktop\\Weather Deatils Data\\StormEvents_details-ftp_v1.0_d2008_c20170718.csv.gz")
+Storm_Events_Details2009 <- read.csv("C:\\Users\\knich\\Desktop\\Weather Deatils Data\\StormEvents_details-ftp_v1.0_d2009_c20170816.csv.gz")
+Storm_Events_Details2010 <- read.csv("C:\\Users\\knich\\Desktop\\Weather Deatils Data\\StormEvents_details-ftp_v1.0_d2010_c20170726.csv.gz")
+Storm_Events_Details2011 <- read.csv("C:\\Users\\knich\\Desktop\\Weather Deatils Data\\StormEvents_details-ftp_v1.0_d2011_c20170519.csv.gz")
+Storm_Events_Details2012 <- read.csv("C:\\Users\\knich\\Desktop\\Weather Deatils Data\\StormEvents_details-ftp_v1.0_d2012_c20170519.csv.gz")
+Storm_Events_Details2013 <- read.csv("C:\\Users\\knich\\Desktop\\Weather Deatils Data\\StormEvents_details-ftp_v1.0_d2013_c20170519.csv.gz")
+Storm_Events_Details2014 <- read.csv("C:\\Users\\knich\\Desktop\\Weather Deatils Data\\StormEvents_details-ftp_v1.0_d2014_c20170718.csv.gz")
+Storm_Events_Details2015 <- read.csv("C:\\Users\\knich\\Desktop\\Weather Deatils Data\\StormEvents_details-ftp_v1.0_d2015_c20170918.csv.gz")
+Storm_Events_Details2016 <- read.csv("C:\\Users\\knich\\Desktop\\Weather Deatils Data\\StormEvents_details-ftp_v1.0_d2016_c20180117.csv.gz")
+Storm_Events_Details2017 <- read.csv("C:\\Users\\knich\\Desktop\\Weather Deatils Data\\StormEvents_details-ftp_v1.0_d2017_c20180418.csv.gz")
+Storm_Events_Details2018 <- read.csv("C:\\Users\\knich\\Desktop\\Weather Deatils Data\\StormEvents_details-ftp_v1.0_d2018_c20180418.csv.gz")
+```
+
+```{r}
+# Select Columns
+
+StormEvents_2004_Cleaned <- Storm_Events_Details2004[,c("END_YEARMONTH","STATE","STATE", "DEATHS_DIRECT",  "EVENT_TYPE")]
+StormEvents_2005_Cleaned <- Storm_Events_Details2005[,c("END_YEARMONTH","STATE","STATE", "DEATHS_DIRECT", "EVENT_TYPE")]
+StormEvents_2006_Cleaned <- Storm_Events_Details2006[,c("END_YEARMONTH","STATE","STATE", "DEATHS_DIRECT", "EVENT_TYPE")]
+StormEvents_2007_Cleaned <- Storm_Events_Details2007[,c("END_YEARMONTH","STATE","STATE", "DEATHS_DIRECT", "EVENT_TYPE")]
+StormEvents_2008_Cleaned <- Storm_Events_Details2008[,c("END_YEARMONTH","STATE","STATE", "DEATHS_DIRECT", "EVENT_TYPE")]
+StormEvents_2009_Cleaned <- Storm_Events_Details2009[,c("END_YEARMONTH","STATE","STATE", "DEATHS_DIRECT", "EVENT_TYPE")]
+StormEvents_2010_Cleaned <- Storm_Events_Details2010[,c("END_YEARMONTH","STATE","STATE", "DEATHS_DIRECT", "EVENT_TYPE")]
+StormEvents_2011_Cleaned <- Storm_Events_Details2011[,c("END_YEARMONTH","STATE","STATE", "DEATHS_DIRECT", "EVENT_TYPE")]
+StormEvents_2012_Cleaned <- Storm_Events_Details2012[,c("END_YEARMONTH","STATE","STATE", "DEATHS_DIRECT", "EVENT_TYPE")]
+StormEvents_2013_Cleaned <- Storm_Events_Details2013[,c("END_YEARMONTH","STATE","STATE", "DEATHS_DIRECT", "EVENT_TYPE")]
+StormEvents_2014_Cleaned <- Storm_Events_Details2014[,c("END_YEARMONTH","STATE","STATE", "DEATHS_DIRECT", "EVENT_TYPE")]
+StormEvents_2015_Cleaned <- Storm_Events_Details2015[,c("END_YEARMONTH","STATE","STATE", "DEATHS_DIRECT", "EVENT_TYPE")]
+StormEvents_2016_Cleaned <- Storm_Events_Details2016[,c("END_YEARMONTH","STATE","STATE", "DEATHS_DIRECT", "EVENT_TYPE")]
+StormEvents_2017_Cleaned <- Storm_Events_Details2017[,c("END_YEARMONTH","STATE","STATE", "DEATHS_DIRECT", "EVENT_TYPE")]
+StormEvents_2018_Cleaned <- Storm_Events_Details2018[,c("END_YEARMONTH","STATE","STATE", "DEATHS_DIRECT", "EVENT_TYPE")]
+```
+
+```{r #Month}
+# Transforming Date
+StormEvents_2004_Cleaned$END_YEARMONTH[StormEvents_2004_Cleaned$END_YEARMONTH==200401] <- "1/2004"
+StormEvents_2004_Cleaned$END_YEARMONTH[StormEvents_2004_Cleaned$END_YEARMONTH==200402] <- "2/2004"
+StormEvents_2004_Cleaned$END_YEARMONTH[StormEvents_2004_Cleaned$END_YEARMONTH==200403] <- "3/2004"
+StormEvents_2004_Cleaned$END_YEARMONTH[StormEvents_2004_Cleaned$END_YEARMONTH==200404] <- "4/2004"
+StormEvents_2004_Cleaned$END_YEARMONTH[StormEvents_2004_Cleaned$END_YEARMONTH==200405] <- "5/2004"
+StormEvents_2004_Cleaned$END_YEARMONTH[StormEvents_2004_Cleaned$END_YEARMONTH==200406] <- "6/2004"
+StormEvents_2004_Cleaned$END_YEARMONTH[StormEvents_2004_Cleaned$END_YEARMONTH==200407] <- "7/2004"
+StormEvents_2004_Cleaned$END_YEARMONTH[StormEvents_2004_Cleaned$END_YEARMONTH==200408] <- "8/2004"
+StormEvents_2004_Cleaned$END_YEARMONTH[StormEvents_2004_Cleaned$END_YEARMONTH==200409] <- "9/2004"
+StormEvents_2004_Cleaned$END_YEARMONTH[StormEvents_2004_Cleaned$END_YEARMONTH==200410] <- "10/2004"
+StormEvents_2004_Cleaned$END_YEARMONTH[StormEvents_2004_Cleaned$END_YEARMONTH==200411] <- "11/2004"
+StormEvents_2004_Cleaned$END_YEARMONTH[StormEvents_2004_Cleaned$END_YEARMONTH==200412] <- "12/2004"
+
+StormEvents_2005_Cleaned$END_YEARMONTH[StormEvents_2005_Cleaned$END_YEARMONTH==200501] <- "1/2005"
+StormEvents_2005_Cleaned$END_YEARMONTH[StormEvents_2005_Cleaned$END_YEARMONTH==200502] <- "2/2005"
+StormEvents_2005_Cleaned$END_YEARMONTH[StormEvents_2005_Cleaned$END_YEARMONTH==200503] <- "3/2005"
+StormEvents_2005_Cleaned$END_YEARMONTH[StormEvents_2005_Cleaned$END_YEARMONTH==200504] <- "4/2005"
+StormEvents_2005_Cleaned$END_YEARMONTH[StormEvents_2005_Cleaned$END_YEARMONTH==200505] <- "5/2005"
+StormEvents_2005_Cleaned$END_YEARMONTH[StormEvents_2005_Cleaned$END_YEARMONTH==200506] <- "6/2005"
+StormEvents_2005_Cleaned$END_YEARMONTH[StormEvents_2005_Cleaned$END_YEARMONTH==200507] <- "7/2005"
+StormEvents_2005_Cleaned$END_YEARMONTH[StormEvents_2005_Cleaned$END_YEARMONTH==200508] <- "8/2005"
+StormEvents_2005_Cleaned$END_YEARMONTH[StormEvents_2005_Cleaned$END_YEARMONTH==200509] <- "9/2005"
+StormEvents_2005_Cleaned$END_YEARMONTH[StormEvents_2005_Cleaned$END_YEARMONTH==200510] <- "10/2005"
+StormEvents_2005_Cleaned$END_YEARMONTH[StormEvents_2005_Cleaned$END_YEARMONTH==200511] <- "11/2005"
+StormEvents_2005_Cleaned$END_YEARMONTH[StormEvents_2005_Cleaned$END_YEARMONTH==200512] <- "12/2005"
+
+StormEvents_2006_Cleaned$END_YEARMONTH[StormEvents_2006_Cleaned$END_YEARMONTH==200601] <- "1/2006"
+StormEvents_2006_Cleaned$END_YEARMONTH[StormEvents_2006_Cleaned$END_YEARMONTH==200602] <- "2/2006"
+StormEvents_2006_Cleaned$END_YEARMONTH[StormEvents_2006_Cleaned$END_YEARMONTH==200603] <- "3/2006"
+StormEvents_2006_Cleaned$END_YEARMONTH[StormEvents_2006_Cleaned$END_YEARMONTH==200604] <- "4/2006"
+StormEvents_2006_Cleaned$END_YEARMONTH[StormEvents_2006_Cleaned$END_YEARMONTH==200605] <- "5/2006"
+StormEvents_2006_Cleaned$END_YEARMONTH[StormEvents_2006_Cleaned$END_YEARMONTH==200606] <- "6/2006"
+StormEvents_2006_Cleaned$END_YEARMONTH[StormEvents_2006_Cleaned$END_YEARMONTH==200607] <- "7/2006"
+StormEvents_2006_Cleaned$END_YEARMONTH[StormEvents_2006_Cleaned$END_YEARMONTH==200608] <- "8/2006"
+StormEvents_2006_Cleaned$END_YEARMONTH[StormEvents_2006_Cleaned$END_YEARMONTH==200609] <- "9/2006"
+StormEvents_2006_Cleaned$END_YEARMONTH[StormEvents_2006_Cleaned$END_YEARMONTH==200610] <- "10/2006"
+StormEvents_2006_Cleaned$END_YEARMONTH[StormEvents_2006_Cleaned$END_YEARMONTH==200611] <- "11/2006"
+StormEvents_2006_Cleaned$END_YEARMONTH[StormEvents_2006_Cleaned$END_YEARMONTH==200612] <- "12/2006"
+
+StormEvents_2007_Cleaned$END_YEARMONTH[StormEvents_2007_Cleaned$END_YEARMONTH==200701] <- "1/2007"
+StormEvents_2007_Cleaned$END_YEARMONTH[StormEvents_2007_Cleaned$END_YEARMONTH==200702] <- "2/2007"
+StormEvents_2007_Cleaned$END_YEARMONTH[StormEvents_2007_Cleaned$END_YEARMONTH==200703] <- "3/2007"
+StormEvents_2007_Cleaned$END_YEARMONTH[StormEvents_2007_Cleaned$END_YEARMONTH==200704] <- "4/2007"
+StormEvents_2007_Cleaned$END_YEARMONTH[StormEvents_2007_Cleaned$END_YEARMONTH==200705] <- "5/2007"
+StormEvents_2007_Cleaned$END_YEARMONTH[StormEvents_2007_Cleaned$END_YEARMONTH==200706] <- "6/2007"
+StormEvents_2007_Cleaned$END_YEARMONTH[StormEvents_2007_Cleaned$END_YEARMONTH==200707] <- "7/2007"
+StormEvents_2007_Cleaned$END_YEARMONTH[StormEvents_2007_Cleaned$END_YEARMONTH==200708] <- "8/2007"
+StormEvents_2007_Cleaned$END_YEARMONTH[StormEvents_2007_Cleaned$END_YEARMONTH==200709] <- "9/2007"
+StormEvents_2007_Cleaned$END_YEARMONTH[StormEvents_2007_Cleaned$END_YEARMONTH==200710] <- "10/2007"
+StormEvents_2007_Cleaned$END_YEARMONTH[StormEvents_2007_Cleaned$END_YEARMONTH==200711] <- "11/2007"
+StormEvents_2007_Cleaned$END_YEARMONTH[StormEvents_2007_Cleaned$END_YEARMONTH==200712] <- "12/2007"
+
+StormEvents_2008_Cleaned$END_YEARMONTH[StormEvents_2008_Cleaned$END_YEARMONTH==200801] <- "1/2008"
+StormEvents_2008_Cleaned$END_YEARMONTH[StormEvents_2008_Cleaned$END_YEARMONTH==200802] <- "2/2008"
+StormEvents_2008_Cleaned$END_YEARMONTH[StormEvents_2008_Cleaned$END_YEARMONTH==200803] <- "3/2008"
+StormEvents_2008_Cleaned$END_YEARMONTH[StormEvents_2008_Cleaned$END_YEARMONTH==200804] <- "4/2008"
+StormEvents_2008_Cleaned$END_YEARMONTH[StormEvents_2008_Cleaned$END_YEARMONTH==200805] <- "5/2008"
+StormEvents_2008_Cleaned$END_YEARMONTH[StormEvents_2008_Cleaned$END_YEARMONTH==200806] <- "6/2008"
+StormEvents_2008_Cleaned$END_YEARMONTH[StormEvents_2008_Cleaned$END_YEARMONTH==200807] <- "7/2008"
+StormEvents_2008_Cleaned$END_YEARMONTH[StormEvents_2008_Cleaned$END_YEARMONTH==200808] <- "8/2008"
+StormEvents_2008_Cleaned$END_YEARMONTH[StormEvents_2008_Cleaned$END_YEARMONTH==200809] <- "9/2008"
+StormEvents_2008_Cleaned$END_YEARMONTH[StormEvents_2008_Cleaned$END_YEARMONTH==200810] <- "10/2008"
+StormEvents_2008_Cleaned$END_YEARMONTH[StormEvents_2008_Cleaned$END_YEARMONTH==200811] <- "11/2008"
+StormEvents_2008_Cleaned$END_YEARMONTH[StormEvents_2008_Cleaned$END_YEARMONTH==200812] <- "12/2008"
+
+StormEvents_2009_Cleaned$END_YEARMONTH[StormEvents_2009_Cleaned$END_YEARMONTH==200901] <- "1/2009"
+StormEvents_2009_Cleaned$END_YEARMONTH[StormEvents_2009_Cleaned$END_YEARMONTH==200902] <- "2/2009"
+StormEvents_2009_Cleaned$END_YEARMONTH[StormEvents_2009_Cleaned$END_YEARMONTH==200903] <- "3/2009"
+StormEvents_2009_Cleaned$END_YEARMONTH[StormEvents_2009_Cleaned$END_YEARMONTH==200904] <- "4/2009"
+StormEvents_2009_Cleaned$END_YEARMONTH[StormEvents_2009_Cleaned$END_YEARMONTH==200905] <- "5/2009"
+StormEvents_2009_Cleaned$END_YEARMONTH[StormEvents_2009_Cleaned$END_YEARMONTH==200906] <- "6/2009"
+StormEvents_2009_Cleaned$END_YEARMONTH[StormEvents_2009_Cleaned$END_YEARMONTH==200907] <- "7/2009"
+StormEvents_2009_Cleaned$END_YEARMONTH[StormEvents_2009_Cleaned$END_YEARMONTH==200908] <- "8/2009"
+StormEvents_2009_Cleaned$END_YEARMONTH[StormEvents_2009_Cleaned$END_YEARMONTH==200909] <- "9/2009"
+StormEvents_2009_Cleaned$END_YEARMONTH[StormEvents_2009_Cleaned$END_YEARMONTH==200910] <- "10/2009"
+StormEvents_2009_Cleaned$END_YEARMONTH[StormEvents_2009_Cleaned$END_YEARMONTH==200911] <- "11/2009"
+StormEvents_2009_Cleaned$END_YEARMONTH[StormEvents_2009_Cleaned$END_YEARMONTH==200912] <- "12/2009"
+
+StormEvents_2010_Cleaned$END_YEARMONTH[StormEvents_2010_Cleaned$END_YEARMONTH==201001] <- "1/2010"
+StormEvents_2010_Cleaned$END_YEARMONTH[StormEvents_2010_Cleaned$END_YEARMONTH==201002] <- "2/2010"
+StormEvents_2010_Cleaned$END_YEARMONTH[StormEvents_2010_Cleaned$END_YEARMONTH==201003] <- "3/2010"
+StormEvents_2010_Cleaned$END_YEARMONTH[StormEvents_2010_Cleaned$END_YEARMONTH==201004] <- "4/2010"
+StormEvents_2010_Cleaned$END_YEARMONTH[StormEvents_2010_Cleaned$END_YEARMONTH==201005] <- "5/2010"
+StormEvents_2010_Cleaned$END_YEARMONTH[StormEvents_2010_Cleaned$END_YEARMONTH==201006] <- "6/2010"
+StormEvents_2010_Cleaned$END_YEARMONTH[StormEvents_2010_Cleaned$END_YEARMONTH==201007] <- "7/2010"
+StormEvents_2010_Cleaned$END_YEARMONTH[StormEvents_2010_Cleaned$END_YEARMONTH==201008] <- "8/2010"
+StormEvents_2010_Cleaned$END_YEARMONTH[StormEvents_2010_Cleaned$END_YEARMONTH==201009] <- "9/2010"
+StormEvents_2010_Cleaned$END_YEARMONTH[StormEvents_2010_Cleaned$END_YEARMONTH==201010] <- "10/2010"
+StormEvents_2010_Cleaned$END_YEARMONTH[StormEvents_2010_Cleaned$END_YEARMONTH==201011] <- "11/2010"
+StormEvents_2010_Cleaned$END_YEARMONTH[StormEvents_2010_Cleaned$END_YEARMONTH==201012] <- "12/2010"
+
+StormEvents_2011_Cleaned$END_YEARMONTH[StormEvents_2011_Cleaned$END_YEARMONTH==201101] <- "1/2011"
+StormEvents_2011_Cleaned$END_YEARMONTH[StormEvents_2011_Cleaned$END_YEARMONTH==201102] <- "2/2011"
+StormEvents_2011_Cleaned$END_YEARMONTH[StormEvents_2011_Cleaned$END_YEARMONTH==201103] <- "3/2011"
+StormEvents_2011_Cleaned$END_YEARMONTH[StormEvents_2011_Cleaned$END_YEARMONTH==201104] <- "4/2011"
+StormEvents_2011_Cleaned$END_YEARMONTH[StormEvents_2011_Cleaned$END_YEARMONTH==201105] <- "5/2011"
+StormEvents_2011_Cleaned$END_YEARMONTH[StormEvents_2011_Cleaned$END_YEARMONTH==201106] <- "6/2011"
+StormEvents_2011_Cleaned$END_YEARMONTH[StormEvents_2011_Cleaned$END_YEARMONTH==201107] <- "7/2011"
+StormEvents_2011_Cleaned$END_YEARMONTH[StormEvents_2011_Cleaned$END_YEARMONTH==201108] <- "8/2011"
+StormEvents_2011_Cleaned$END_YEARMONTH[StormEvents_2011_Cleaned$END_YEARMONTH==201109] <- "9/2011"
+StormEvents_2011_Cleaned$END_YEARMONTH[StormEvents_2011_Cleaned$END_YEARMONTH==201110] <- "10/2011"
+StormEvents_2011_Cleaned$END_YEARMONTH[StormEvents_2011_Cleaned$END_YEARMONTH==201111] <- "11/2011"
+StormEvents_2011_Cleaned$END_YEARMONTH[StormEvents_2011_Cleaned$END_YEARMONTH==201112] <- "12/2011"
+
+StormEvents_2012_Cleaned$END_YEARMONTH[StormEvents_2012_Cleaned$END_YEARMONTH==201201] <- "1/2012"
+StormEvents_2012_Cleaned$END_YEARMONTH[StormEvents_2012_Cleaned$END_YEARMONTH==201202] <- "2/2012"
+StormEvents_2012_Cleaned$END_YEARMONTH[StormEvents_2012_Cleaned$END_YEARMONTH==201203] <- "3/2012"
+StormEvents_2012_Cleaned$END_YEARMONTH[StormEvents_2012_Cleaned$END_YEARMONTH==201204] <- "4/2012"
+StormEvents_2012_Cleaned$END_YEARMONTH[StormEvents_2012_Cleaned$END_YEARMONTH==201205] <- "5/2012"
+StormEvents_2012_Cleaned$END_YEARMONTH[StormEvents_2012_Cleaned$END_YEARMONTH==201206] <- "6/2012"
+StormEvents_2012_Cleaned$END_YEARMONTH[StormEvents_2012_Cleaned$END_YEARMONTH==201207] <- "7/2012"
+StormEvents_2012_Cleaned$END_YEARMONTH[StormEvents_2012_Cleaned$END_YEARMONTH==201208] <- "8/2012"
+StormEvents_2012_Cleaned$END_YEARMONTH[StormEvents_2012_Cleaned$END_YEARMONTH==201209] <- "9/2012"
+StormEvents_2012_Cleaned$END_YEARMONTH[StormEvents_2012_Cleaned$END_YEARMONTH==201210] <- "10/2012"
+StormEvents_2012_Cleaned$END_YEARMONTH[StormEvents_2012_Cleaned$END_YEARMONTH==201211] <- "11/2012"
+StormEvents_2012_Cleaned$END_YEARMONTH[StormEvents_2012_Cleaned$END_YEARMONTH==201212] <- "12/2012"
+
+StormEvents_2013_Cleaned$END_YEARMONTH[StormEvents_2013_Cleaned$END_YEARMONTH==201301] <- "1/2013"
+StormEvents_2013_Cleaned$END_YEARMONTH[StormEvents_2013_Cleaned$END_YEARMONTH==201302] <- "2/2013"
+StormEvents_2013_Cleaned$END_YEARMONTH[StormEvents_2013_Cleaned$END_YEARMONTH==201303] <- "3/2013"
+StormEvents_2013_Cleaned$END_YEARMONTH[StormEvents_2013_Cleaned$END_YEARMONTH==201304] <- "4/2013"
+StormEvents_2013_Cleaned$END_YEARMONTH[StormEvents_2013_Cleaned$END_YEARMONTH==201305] <- "5/2013"
+StormEvents_2013_Cleaned$END_YEARMONTH[StormEvents_2013_Cleaned$END_YEARMONTH==201306] <- "6/2013"
+StormEvents_2013_Cleaned$END_YEARMONTH[StormEvents_2013_Cleaned$END_YEARMONTH==201307] <- "7/2013"
+StormEvents_2013_Cleaned$END_YEARMONTH[StormEvents_2013_Cleaned$END_YEARMONTH==201308] <- "8/2013"
+StormEvents_2013_Cleaned$END_YEARMONTH[StormEvents_2013_Cleaned$END_YEARMONTH==201309] <- "9/2013"
+StormEvents_2013_Cleaned$END_YEARMONTH[StormEvents_2013_Cleaned$END_YEARMONTH==201310] <- "10/2013"
+StormEvents_2013_Cleaned$END_YEARMONTH[StormEvents_2013_Cleaned$END_YEARMONTH==201311] <- "11/2013"
+StormEvents_2013_Cleaned$END_YEARMONTH[StormEvents_2013_Cleaned$END_YEARMONTH==201312] <- "12/2013"
+
+
+
+
+StormEvents_2014_Cleaned$END_YEARMONTH[StormEvents_2014_Cleaned$END_YEARMONTH==201401] <- "1/2014"
+StormEvents_2014_Cleaned$END_YEARMONTH[StormEvents_2014_Cleaned$END_YEARMONTH==201402] <- "2/2014"
+StormEvents_2014_Cleaned$END_YEARMONTH[StormEvents_2014_Cleaned$END_YEARMONTH==201403] <- "3/2014"
+StormEvents_2014_Cleaned$END_YEARMONTH[StormEvents_2014_Cleaned$END_YEARMONTH==201404] <- "4/2014"
+StormEvents_2014_Cleaned$END_YEARMONTH[StormEvents_2014_Cleaned$END_YEARMONTH==201405] <- "5/2014"
+StormEvents_2014_Cleaned$END_YEARMONTH[StormEvents_2014_Cleaned$END_YEARMONTH==201406] <- "6/2014"
+StormEvents_2014_Cleaned$END_YEARMONTH[StormEvents_2014_Cleaned$END_YEARMONTH==201407] <- "7/2014"
+StormEvents_2014_Cleaned$END_YEARMONTH[StormEvents_2014_Cleaned$END_YEARMONTH==201408] <- "8/2014"
+StormEvents_2014_Cleaned$END_YEARMONTH[StormEvents_2014_Cleaned$END_YEARMONTH==201409] <- "9/2014"
+StormEvents_2014_Cleaned$END_YEARMONTH[StormEvents_2014_Cleaned$END_YEARMONTH==201410] <- "10/2014"
+StormEvents_2014_Cleaned$END_YEARMONTH[StormEvents_2014_Cleaned$END_YEARMONTH==201411] <- "11/2014"
+StormEvents_2014_Cleaned$END_YEARMONTH[StormEvents_2014_Cleaned$END_YEARMONTH==201412] <- "12/2014"
+
+StormEvents_2015_Cleaned$END_YEARMONTH[StormEvents_2015_Cleaned$END_YEARMONTH==201501] <- "1/2015"
+StormEvents_2015_Cleaned$END_YEARMONTH[StormEvents_2015_Cleaned$END_YEARMONTH==201502] <- "2/2015"
+StormEvents_2015_Cleaned$END_YEARMONTH[StormEvents_2015_Cleaned$END_YEARMONTH==201503] <- "3/2015"
+StormEvents_2015_Cleaned$END_YEARMONTH[StormEvents_2015_Cleaned$END_YEARMONTH==201504] <- "4/2015"
+StormEvents_2015_Cleaned$END_YEARMONTH[StormEvents_2015_Cleaned$END_YEARMONTH==201505] <- "5/2015"
+StormEvents_2015_Cleaned$END_YEARMONTH[StormEvents_2015_Cleaned$END_YEARMONTH==201506] <- "6/2015"
+StormEvents_2015_Cleaned$END_YEARMONTH[StormEvents_2015_Cleaned$END_YEARMONTH==201507] <- "7/2015"
+StormEvents_2015_Cleaned$END_YEARMONTH[StormEvents_2015_Cleaned$END_YEARMONTH==201508] <- "8/2015"
+StormEvents_2015_Cleaned$END_YEARMONTH[StormEvents_2015_Cleaned$END_YEARMONTH==201509] <- "9/2015"
+StormEvents_2015_Cleaned$END_YEARMONTH[StormEvents_2015_Cleaned$END_YEARMONTH==201510] <- "10/2015"
+StormEvents_2015_Cleaned$END_YEARMONTH[StormEvents_2015_Cleaned$END_YEARMONTH==201511] <- "11/2015"
+StormEvents_2015_Cleaned$END_YEARMONTH[StormEvents_2015_Cleaned$END_YEARMONTH==201512] <- "12/2015"
+
+StormEvents_2016_Cleaned$END_YEARMONTH[StormEvents_2016_Cleaned$END_YEARMONTH==201601] <- "1/2016"
+StormEvents_2016_Cleaned$END_YEARMONTH[StormEvents_2016_Cleaned$END_YEARMONTH==201602] <- "2/2016"
+StormEvents_2016_Cleaned$END_YEARMONTH[StormEvents_2016_Cleaned$END_YEARMONTH==201603] <- "3/2016"
+StormEvents_2016_Cleaned$END_YEARMONTH[StormEvents_2016_Cleaned$END_YEARMONTH==201604] <- "4/2016"
+StormEvents_2016_Cleaned$END_YEARMONTH[StormEvents_2016_Cleaned$END_YEARMONTH==201605] <- "5/2016"
+StormEvents_2016_Cleaned$END_YEARMONTH[StormEvents_2016_Cleaned$END_YEARMONTH==201606] <- "6/2016"
+StormEvents_2016_Cleaned$END_YEARMONTH[StormEvents_2016_Cleaned$END_YEARMONTH==201607] <- "7/2016"
+StormEvents_2016_Cleaned$END_YEARMONTH[StormEvents_2016_Cleaned$END_YEARMONTH==201608] <- "8/2016"
+StormEvents_2016_Cleaned$END_YEARMONTH[StormEvents_2016_Cleaned$END_YEARMONTH==201609] <- "9/2016"
+StormEvents_2016_Cleaned$END_YEARMONTH[StormEvents_2016_Cleaned$END_YEARMONTH==201610] <- "10/2016"
+StormEvents_2016_Cleaned$END_YEARMONTH[StormEvents_2016_Cleaned$END_YEARMONTH==201611] <- "11/2016"
+StormEvents_2016_Cleaned$END_YEARMONTH[StormEvents_2016_Cleaned$END_YEARMONTH==201612] <- "12/2016"
+
+StormEvents_2017_Cleaned$END_YEARMONTH[StormEvents_2017_Cleaned$END_YEARMONTH==201701] <- "1/2017"
+StormEvents_2017_Cleaned$END_YEARMONTH[StormEvents_2017_Cleaned$END_YEARMONTH==201702] <- "2/2017"
+StormEvents_2017_Cleaned$END_YEARMONTH[StormEvents_2017_Cleaned$END_YEARMONTH==201703] <- "3/2017"
+StormEvents_2017_Cleaned$END_YEARMONTH[StormEvents_2017_Cleaned$END_YEARMONTH==201704] <- "4/2017"
+StormEvents_2017_Cleaned$END_YEARMONTH[StormEvents_2017_Cleaned$END_YEARMONTH==201705] <- "5/2017"
+StormEvents_2017_Cleaned$END_YEARMONTH[StormEvents_2017_Cleaned$END_YEARMONTH==201706] <- "6/2017"
+StormEvents_2017_Cleaned$END_YEARMONTH[StormEvents_2017_Cleaned$END_YEARMONTH==201707] <- "7/2017"
+StormEvents_2017_Cleaned$END_YEARMONTH[StormEvents_2017_Cleaned$END_YEARMONTH==201708] <- "8/2017"
+StormEvents_2017_Cleaned$END_YEARMONTH[StormEvents_2017_Cleaned$END_YEARMONTH==201709] <- "9/2017"
+StormEvents_2017_Cleaned$END_YEARMONTH[StormEvents_2017_Cleaned$END_YEARMONTH==201710] <- "10/2017"
+StormEvents_2017_Cleaned$END_YEARMONTH[StormEvents_2017_Cleaned$END_YEARMONTH==201711] <- "11/2017"
+StormEvents_2017_Cleaned$END_YEARMONTH[StormEvents_2017_Cleaned$END_YEARMONTH==201712] <- "12/2017"
+
+StormEvents_2018_Cleaned$END_YEARMONTH[StormEvents_2018_Cleaned$END_YEARMONTH==201801] <- "1/2018"
+StormEvents_2018_Cleaned$END_YEARMONTH[StormEvents_2018_Cleaned$END_YEARMONTH==201802] <- "2/2018"
+StormEvents_2018_Cleaned$END_YEARMONTH[StormEvents_2018_Cleaned$END_YEARMONTH==201803] <- "3/2018"
+StormEvents_2018_Cleaned$END_YEARMONTH[StormEvents_2018_Cleaned$END_YEARMONTH==201804] <- "4/2018"
+StormEvents_2018_Cleaned$END_YEARMONTH[StormEvents_2018_Cleaned$END_YEARMONTH==201805] <- "5/2018"
+StormEvents_2018_Cleaned$END_YEARMONTH[StormEvents_2018_Cleaned$END_YEARMONTH==201806] <- "6/2018"
+StormEvents_2018_Cleaned$END_YEARMONTH[StormEvents_2018_Cleaned$END_YEARMONTH==201807] <- "7/2018"
+StormEvents_2018_Cleaned$END_YEARMONTH[StormEvents_2018_Cleaned$END_YEARMONTH==201808] <- "8/2018"
+StormEvents_2018_Cleaned$END_YEARMONTH[StormEvents_2018_Cleaned$END_YEARMONTH==201809] <- "9/2018"
+StormEvents_2018_Cleaned$END_YEARMONTH[StormEvents_2018_Cleaned$END_YEARMONTH==201810] <- "10/2018"
+StormEvents_2018_Cleaned$END_YEARMONTH[StormEvents_2018_Cleaned$END_YEARMONTH==201811] <- "11/2018"
+StormEvents_2018_Cleaned$END_YEARMONTH[StormEvents_2018_Cleaned$END_YEARMONTH==201812] <- "12/2018"
+
+```
+
+
+```{r #Month Variable} 
+# Months
+StormEvents_2004_Cleaned$Month <- NA
+StormEvents_2005_Cleaned$Month <- NA
+StormEvents_2006_Cleaned$Month <- NA
+StormEvents_2007_Cleaned$Month <- NA
+StormEvents_2008_Cleaned$Month <- NA
+StormEvents_2009_Cleaned$Month <- NA
+StormEvents_2010_Cleaned$Month <- NA
+StormEvents_2011_Cleaned$Month <- NA
+StormEvents_2012_Cleaned$Month <- NA
+StormEvents_2013_Cleaned$Month <- NA
+StormEvents_2014_Cleaned$Month <- NA
+StormEvents_2015_Cleaned$Month <- NA
+StormEvents_2016_Cleaned$Month <- NA
+StormEvents_2017_Cleaned$Month <- NA
+StormEvents_2018_Cleaned$Month <- NA
+
+
+StormEvents_2004_Cleaned$Month[StormEvents_2004_Cleaned$END_YEARMONTH=="1/2004"] <- "January"
+StormEvents_2004_Cleaned$Month[StormEvents_2004_Cleaned$END_YEARMONTH=="2/2004"] <- "February"
+StormEvents_2004_Cleaned$Month[StormEvents_2004_Cleaned$END_YEARMONTH=="3/2004"] <- "March"
+StormEvents_2004_Cleaned$Month[StormEvents_2004_Cleaned$END_YEARMONTH=="4/2004"] <- "April"
+StormEvents_2004_Cleaned$Month[StormEvents_2004_Cleaned$END_YEARMONTH=="5/2004"] <- "May"
+StormEvents_2004_Cleaned$Month[StormEvents_2004_Cleaned$END_YEARMONTH=="6/2004"] <- "June"
+StormEvents_2004_Cleaned$Month[StormEvents_2004_Cleaned$END_YEARMONTH=="7/2004"] <- "July"
+StormEvents_2004_Cleaned$Month[StormEvents_2004_Cleaned$END_YEARMONTH=="8/2004"] <- "August"
+StormEvents_2004_Cleaned$Month[StormEvents_2004_Cleaned$END_YEARMONTH=="9/2004"] <- "September"
+StormEvents_2004_Cleaned$Month[StormEvents_2004_Cleaned$END_YEARMONTH=="10/2004"] <- "October"
+StormEvents_2004_Cleaned$Month[StormEvents_2004_Cleaned$END_YEARMONTH=="11/2004"] <- "November"
+StormEvents_2004_Cleaned$Month[StormEvents_2004_Cleaned$END_YEARMONTH=="12/2004"] <- "December"
+
+StormEvents_2005_Cleaned$Month[StormEvents_2005_Cleaned$END_YEARMONTH=="1/2005"] <- "January"
+StormEvents_2005_Cleaned$Month[StormEvents_2005_Cleaned$END_YEARMONTH=="2/2005"] <- "February"
+StormEvents_2005_Cleaned$Month[StormEvents_2005_Cleaned$END_YEARMONTH=="3/2005"] <- "March"
+StormEvents_2005_Cleaned$Month[StormEvents_2005_Cleaned$END_YEARMONTH=="4/2005"] <- "April"
+StormEvents_2005_Cleaned$Month[StormEvents_2005_Cleaned$END_YEARMONTH=="5/2005"] <- "May"
+StormEvents_2005_Cleaned$Month[StormEvents_2005_Cleaned$END_YEARMONTH=="6/2005"] <- "June"
+StormEvents_2005_Cleaned$Month[StormEvents_2005_Cleaned$END_YEARMONTH=="7/2005"] <- "July"
+StormEvents_2005_Cleaned$Month[StormEvents_2005_Cleaned$END_YEARMONTH=="8/2005"] <- "August"
+StormEvents_2005_Cleaned$Month[StormEvents_2005_Cleaned$END_YEARMONTH=="9/2005"] <- "September"
+StormEvents_2005_Cleaned$Month[StormEvents_2005_Cleaned$END_YEARMONTH=="10/2005"] <- "October"
+StormEvents_2005_Cleaned$Month[StormEvents_2005_Cleaned$END_YEARMONTH=="11/2005"] <- "November"
+StormEvents_2005_Cleaned$Month[StormEvents_2005_Cleaned$END_YEARMONTH=="12/2005"] <- "December"
+
+StormEvents_2006_Cleaned$Month[StormEvents_2006_Cleaned$END_YEARMONTH=="1/2006"] <- "January"
+StormEvents_2006_Cleaned$Month[StormEvents_2006_Cleaned$END_YEARMONTH=="2/2006"] <- "February"
+StormEvents_2006_Cleaned$Month[StormEvents_2006_Cleaned$END_YEARMONTH=="3/2006"] <- "March"
+StormEvents_2006_Cleaned$Month[StormEvents_2006_Cleaned$END_YEARMONTH=="4/2006"] <- "April"
+StormEvents_2006_Cleaned$Month[StormEvents_2006_Cleaned$END_YEARMONTH=="5/2006"] <- "May"
+StormEvents_2006_Cleaned$Month[StormEvents_2006_Cleaned$END_YEARMONTH=="6/2006"] <- "June"
+StormEvents_2006_Cleaned$Month[StormEvents_2006_Cleaned$END_YEARMONTH=="7/2006"] <- "July"
+StormEvents_2006_Cleaned$Month[StormEvents_2006_Cleaned$END_YEARMONTH=="8/2006"] <- "August"
+StormEvents_2006_Cleaned$Month[StormEvents_2006_Cleaned$END_YEARMONTH=="9/2006"] <- "September"
+StormEvents_2006_Cleaned$Month[StormEvents_2006_Cleaned$END_YEARMONTH=="10/2006"] <- "October"
+StormEvents_2006_Cleaned$Month[StormEvents_2006_Cleaned$END_YEARMONTH=="11/2006"] <- "November"
+StormEvents_2006_Cleaned$Month[StormEvents_2006_Cleaned$END_YEARMONTH=="12/2006"] <- "December"
+
+StormEvents_2007_Cleaned$Month[StormEvents_2007_Cleaned$END_YEARMONTH=="1/2007"] <- "January"
+StormEvents_2007_Cleaned$Month[StormEvents_2007_Cleaned$END_YEARMONTH=="2/2007"] <- "February"
+StormEvents_2007_Cleaned$Month[StormEvents_2007_Cleaned$END_YEARMONTH=="3/2007"] <- "March"
+StormEvents_2007_Cleaned$Month[StormEvents_2007_Cleaned$END_YEARMONTH=="4/2007"] <- "April"
+StormEvents_2007_Cleaned$Month[StormEvents_2007_Cleaned$END_YEARMONTH=="5/2007"] <- "May"
+StormEvents_2007_Cleaned$Month[StormEvents_2007_Cleaned$END_YEARMONTH=="6/2007"] <- "June"
+StormEvents_2007_Cleaned$Month[StormEvents_2007_Cleaned$END_YEARMONTH=="7/2007"] <- "July"
+StormEvents_2007_Cleaned$Month[StormEvents_2007_Cleaned$END_YEARMONTH=="8/2007"] <- "August"
+StormEvents_2007_Cleaned$Month[StormEvents_2007_Cleaned$END_YEARMONTH=="9/2007"] <- "September"
+StormEvents_2007_Cleaned$Month[StormEvents_2007_Cleaned$END_YEARMONTH=="10/2007"] <- "October"
+StormEvents_2007_Cleaned$Month[StormEvents_2007_Cleaned$END_YEARMONTH=="11/2007"] <- "November"
+StormEvents_2007_Cleaned$Month[StormEvents_2007_Cleaned$END_YEARMONTH=="12/2007"] <- "December"
+
+StormEvents_2008_Cleaned$Month[StormEvents_2008_Cleaned$END_YEARMONTH=="1/2008"] <- "January"
+StormEvents_2008_Cleaned$Month[StormEvents_2008_Cleaned$END_YEARMONTH=="2/2008"] <- "February"
+StormEvents_2008_Cleaned$Month[StormEvents_2008_Cleaned$END_YEARMONTH=="3/2008"] <- "March"
+StormEvents_2008_Cleaned$Month[StormEvents_2008_Cleaned$END_YEARMONTH=="4/2008"] <- "April"
+StormEvents_2008_Cleaned$Month[StormEvents_2008_Cleaned$END_YEARMONTH=="5/2008"] <- "May"
+StormEvents_2008_Cleaned$Month[StormEvents_2008_Cleaned$END_YEARMONTH=="6/2008"] <- "June"
+StormEvents_2008_Cleaned$Month[StormEvents_2008_Cleaned$END_YEARMONTH=="7/2008"] <- "July"
+StormEvents_2008_Cleaned$Month[StormEvents_2008_Cleaned$END_YEARMONTH=="8/2008"] <- "August"
+StormEvents_2008_Cleaned$Month[StormEvents_2008_Cleaned$END_YEARMONTH=="9/2008"] <- "September"
+StormEvents_2008_Cleaned$Month[StormEvents_2008_Cleaned$END_YEARMONTH=="10/2008"] <- "October"
+StormEvents_2008_Cleaned$Month[StormEvents_2008_Cleaned$END_YEARMONTH=="11/2008"] <- "November"
+StormEvents_2008_Cleaned$Month[StormEvents_2008_Cleaned$END_YEARMONTH=="12/2008"] <- "December"
+
+StormEvents_2009_Cleaned$Month[StormEvents_2009_Cleaned$END_YEARMONTH=="1/2009"] <- "January"
+StormEvents_2009_Cleaned$Month[StormEvents_2009_Cleaned$END_YEARMONTH=="2/2009"] <- "February"
+StormEvents_2009_Cleaned$Month[StormEvents_2009_Cleaned$END_YEARMONTH=="3/2009"] <- "March"
+StormEvents_2009_Cleaned$Month[StormEvents_2009_Cleaned$END_YEARMONTH=="4/2009"] <- "April"
+StormEvents_2009_Cleaned$Month[StormEvents_2009_Cleaned$END_YEARMONTH=="5/2009"] <- "May"
+StormEvents_2009_Cleaned$Month[StormEvents_2009_Cleaned$END_YEARMONTH=="6/2009"] <- "June"
+StormEvents_2009_Cleaned$Month[StormEvents_2009_Cleaned$END_YEARMONTH=="7/2009"] <- "July"
+StormEvents_2009_Cleaned$Month[StormEvents_2009_Cleaned$END_YEARMONTH=="8/2009"] <- "August"
+StormEvents_2009_Cleaned$Month[StormEvents_2009_Cleaned$END_YEARMONTH=="9/2009"] <- "September"
+StormEvents_2009_Cleaned$Month[StormEvents_2009_Cleaned$END_YEARMONTH=="10/2009"] <- "October"
+StormEvents_2009_Cleaned$Month[StormEvents_2009_Cleaned$END_YEARMONTH=="11/2009"] <- "November"
+StormEvents_2009_Cleaned$Month[StormEvents_2009_Cleaned$END_YEARMONTH=="12/2009"] <- "December"
+
+StormEvents_2010_Cleaned$Month[StormEvents_2010_Cleaned$END_YEARMONTH=="1/2010"] <- "January"
+StormEvents_2010_Cleaned$Month[StormEvents_2010_Cleaned$END_YEARMONTH=="2/2010"] <- "February"
+StormEvents_2010_Cleaned$Month[StormEvents_2010_Cleaned$END_YEARMONTH=="3/2010"] <- "March"
+StormEvents_2010_Cleaned$Month[StormEvents_2010_Cleaned$END_YEARMONTH=="4/2010"] <- "April"
+StormEvents_2010_Cleaned$Month[StormEvents_2010_Cleaned$END_YEARMONTH=="5/2010"] <- "May"
+StormEvents_2010_Cleaned$Month[StormEvents_2010_Cleaned$END_YEARMONTH=="6/2010"] <- "June"
+StormEvents_2010_Cleaned$Month[StormEvents_2010_Cleaned$END_YEARMONTH=="7/2010"] <- "July"
+StormEvents_2010_Cleaned$Month[StormEvents_2010_Cleaned$END_YEARMONTH=="8/2010"] <- "August"
+StormEvents_2010_Cleaned$Month[StormEvents_2010_Cleaned$END_YEARMONTH=="9/2010"] <- "September"
+StormEvents_2010_Cleaned$Month[StormEvents_2010_Cleaned$END_YEARMONTH=="10/2010"] <- "October"
+StormEvents_2010_Cleaned$Month[StormEvents_2010_Cleaned$END_YEARMONTH=="11/2010"] <- "November"
+StormEvents_2010_Cleaned$Month[StormEvents_2010_Cleaned$END_YEARMONTH=="12/2010"] <- "December"
+
+StormEvents_2011_Cleaned$Month[StormEvents_2011_Cleaned$END_YEARMONTH=="1/2011"] <- "January"
+StormEvents_2011_Cleaned$Month[StormEvents_2011_Cleaned$END_YEARMONTH=="2/2011"] <- "February"
+StormEvents_2011_Cleaned$Month[StormEvents_2011_Cleaned$END_YEARMONTH=="3/2011"] <- "March"
+StormEvents_2011_Cleaned$Month[StormEvents_2011_Cleaned$END_YEARMONTH=="4/2011"] <- "April"
+StormEvents_2011_Cleaned$Month[StormEvents_2011_Cleaned$END_YEARMONTH=="5/2011"] <- "May"
+StormEvents_2011_Cleaned$Month[StormEvents_2011_Cleaned$END_YEARMONTH=="6/2011"] <- "June"
+StormEvents_2011_Cleaned$Month[StormEvents_2011_Cleaned$END_YEARMONTH=="7/2011"] <- "July"
+StormEvents_2011_Cleaned$Month[StormEvents_2011_Cleaned$END_YEARMONTH=="8/2011"] <- "August"
+StormEvents_2011_Cleaned$Month[StormEvents_2011_Cleaned$END_YEARMONTH=="9/2011"] <- "September"
+StormEvents_2011_Cleaned$Month[StormEvents_2011_Cleaned$END_YEARMONTH=="10/2011"] <- "October"
+StormEvents_2011_Cleaned$Month[StormEvents_2011_Cleaned$END_YEARMONTH=="11/2011"] <- "November"
+StormEvents_2011_Cleaned$Month[StormEvents_2011_Cleaned$END_YEARMONTH=="12/2011"] <- "December"
+
+StormEvents_2012_Cleaned$Month[StormEvents_2012_Cleaned$END_YEARMONTH=="1/2012"] <- "January"
+StormEvents_2012_Cleaned$Month[StormEvents_2012_Cleaned$END_YEARMONTH=="2/2012"] <- "February"
+StormEvents_2012_Cleaned$Month[StormEvents_2012_Cleaned$END_YEARMONTH=="3/2012"] <- "March"
+StormEvents_2012_Cleaned$Month[StormEvents_2012_Cleaned$END_YEARMONTH=="4/2012"] <- "April"
+StormEvents_2012_Cleaned$Month[StormEvents_2012_Cleaned$END_YEARMONTH=="5/2012"] <- "May"
+StormEvents_2012_Cleaned$Month[StormEvents_2012_Cleaned$END_YEARMONTH=="6/2012"] <- "June"
+StormEvents_2012_Cleaned$Month[StormEvents_2012_Cleaned$END_YEARMONTH=="7/2012"] <- "July"
+StormEvents_2012_Cleaned$Month[StormEvents_2012_Cleaned$END_YEARMONTH=="8/2012"] <- "August"
+StormEvents_2012_Cleaned$Month[StormEvents_2012_Cleaned$END_YEARMONTH=="9/2012"] <- "September"
+StormEvents_2012_Cleaned$Month[StormEvents_2012_Cleaned$END_YEARMONTH=="10/2012"] <- "October"
+StormEvents_2012_Cleaned$Month[StormEvents_2012_Cleaned$END_YEARMONTH=="11/2012"] <- "November"
+StormEvents_2012_Cleaned$Month[StormEvents_2012_Cleaned$END_YEARMONTH=="12/2012"] <- "December"
+
+StormEvents_2013_Cleaned$Month[StormEvents_2013_Cleaned$END_YEARMONTH=="1/2013"] <- "January"
+StormEvents_2013_Cleaned$Month[StormEvents_2013_Cleaned$END_YEARMONTH=="2/2013"] <- "February"
+StormEvents_2013_Cleaned$Month[StormEvents_2013_Cleaned$END_YEARMONTH=="3/2013"] <- "March"
+StormEvents_2013_Cleaned$Month[StormEvents_2013_Cleaned$END_YEARMONTH=="4/2013"] <- "April"
+StormEvents_2013_Cleaned$Month[StormEvents_2013_Cleaned$END_YEARMONTH=="5/2013"] <- "May"
+StormEvents_2013_Cleaned$Month[StormEvents_2013_Cleaned$END_YEARMONTH=="6/2013"] <- "June"
+StormEvents_2013_Cleaned$Month[StormEvents_2013_Cleaned$END_YEARMONTH=="7/2013"] <- "July"
+StormEvents_2013_Cleaned$Month[StormEvents_2013_Cleaned$END_YEARMONTH=="8/2013"] <- "August"
+StormEvents_2013_Cleaned$Month[StormEvents_2013_Cleaned$END_YEARMONTH=="9/2013"] <- "September"
+StormEvents_2013_Cleaned$Month[StormEvents_2013_Cleaned$END_YEARMONTH=="10/2013"] <- "October"
+StormEvents_2013_Cleaned$Month[StormEvents_2013_Cleaned$END_YEARMONTH=="11/2013"] <- "November"
+StormEvents_2013_Cleaned$Month[StormEvents_2013_Cleaned$END_YEARMONTH=="12/2013"] <- "December"
+
+StormEvents_2014_Cleaned$Month[StormEvents_2014_Cleaned$END_YEARMONTH=="1/2014"] <- "January"
+StormEvents_2014_Cleaned$Month[StormEvents_2014_Cleaned$END_YEARMONTH=="2/2014"] <- "February"
+StormEvents_2014_Cleaned$Month[StormEvents_2014_Cleaned$END_YEARMONTH=="3/2014"] <- "March"
+StormEvents_2014_Cleaned$Month[StormEvents_2014_Cleaned$END_YEARMONTH=="4/2014"] <- "April"
+StormEvents_2014_Cleaned$Month[StormEvents_2014_Cleaned$END_YEARMONTH=="5/2014"] <- "May"
+StormEvents_2014_Cleaned$Month[StormEvents_2014_Cleaned$END_YEARMONTH=="6/2014"] <- "June"
+StormEvents_2014_Cleaned$Month[StormEvents_2014_Cleaned$END_YEARMONTH=="7/2014"] <- "July"
+StormEvents_2014_Cleaned$Month[StormEvents_2014_Cleaned$END_YEARMONTH=="8/2014"] <- "August"
+StormEvents_2014_Cleaned$Month[StormEvents_2014_Cleaned$END_YEARMONTH=="9/2014"] <- "September"
+StormEvents_2014_Cleaned$Month[StormEvents_2014_Cleaned$END_YEARMONTH=="10/2014"] <- "October"
+StormEvents_2014_Cleaned$Month[StormEvents_2014_Cleaned$END_YEARMONTH=="11/2014"] <- "November"
+StormEvents_2014_Cleaned$Month[StormEvents_2014_Cleaned$END_YEARMONTH=="12/2014"] <- "December"
+
+StormEvents_2015_Cleaned$Month[StormEvents_2015_Cleaned$END_YEARMONTH=="1/2015"] <- "January"
+StormEvents_2015_Cleaned$Month[StormEvents_2015_Cleaned$END_YEARMONTH=="2/2015"] <- "February"
+StormEvents_2015_Cleaned$Month[StormEvents_2015_Cleaned$END_YEARMONTH=="3/2015"] <- "March"
+StormEvents_2015_Cleaned$Month[StormEvents_2015_Cleaned$END_YEARMONTH=="4/2015"] <- "April"
+StormEvents_2015_Cleaned$Month[StormEvents_2015_Cleaned$END_YEARMONTH=="5/2015"] <- "May"
+StormEvents_2015_Cleaned$Month[StormEvents_2015_Cleaned$END_YEARMONTH=="6/2015"] <- "June"
+StormEvents_2015_Cleaned$Month[StormEvents_2015_Cleaned$END_YEARMONTH=="7/2015"] <- "July"
+StormEvents_2015_Cleaned$Month[StormEvents_2015_Cleaned$END_YEARMONTH=="8/2015"] <- "August"
+StormEvents_2015_Cleaned$Month[StormEvents_2015_Cleaned$END_YEARMONTH=="9/2015"] <- "September"
+StormEvents_2015_Cleaned$Month[StormEvents_2015_Cleaned$END_YEARMONTH=="10/2015"] <- "October"
+StormEvents_2015_Cleaned$Month[StormEvents_2015_Cleaned$END_YEARMONTH=="11/2015"] <- "November"
+StormEvents_2015_Cleaned$Month[StormEvents_2015_Cleaned$END_YEARMONTH=="12/2015"] <- "December"
+
+StormEvents_2016_Cleaned$Month[StormEvents_2016_Cleaned$END_YEARMONTH=="1/2016"] <- "January"
+StormEvents_2016_Cleaned$Month[StormEvents_2016_Cleaned$END_YEARMONTH=="2/2016"] <- "February"
+StormEvents_2016_Cleaned$Month[StormEvents_2016_Cleaned$END_YEARMONTH=="3/2016"] <- "March"
+StormEvents_2016_Cleaned$Month[StormEvents_2016_Cleaned$END_YEARMONTH=="4/2016"] <- "April"
+StormEvents_2016_Cleaned$Month[StormEvents_2016_Cleaned$END_YEARMONTH=="5/2016"] <- "May"
+StormEvents_2016_Cleaned$Month[StormEvents_2016_Cleaned$END_YEARMONTH=="6/2016"] <- "June"
+StormEvents_2016_Cleaned$Month[StormEvents_2016_Cleaned$END_YEARMONTH=="7/2016"] <- "July"
+StormEvents_2016_Cleaned$Month[StormEvents_2016_Cleaned$END_YEARMONTH=="8/2016"] <- "August"
+StormEvents_2016_Cleaned$Month[StormEvents_2016_Cleaned$END_YEARMONTH=="9/2016"] <- "September"
+StormEvents_2016_Cleaned$Month[StormEvents_2016_Cleaned$END_YEARMONTH=="10/2016"] <- "October"
+StormEvents_2016_Cleaned$Month[StormEvents_2016_Cleaned$END_YEARMONTH=="11/2016"] <- "November"
+StormEvents_2016_Cleaned$Month[StormEvents_2016_Cleaned$END_YEARMONTH=="12/2016"] <- "December"
+
+StormEvents_2017_Cleaned$Month[StormEvents_2017_Cleaned$END_YEARMONTH=="1/2017"] <- "January"
+StormEvents_2017_Cleaned$Month[StormEvents_2017_Cleaned$END_YEARMONTH=="2/2017"] <- "February"
+StormEvents_2017_Cleaned$Month[StormEvents_2017_Cleaned$END_YEARMONTH=="3/2017"] <- "March"
+StormEvents_2017_Cleaned$Month[StormEvents_2017_Cleaned$END_YEARMONTH=="4/2017"] <- "April"
+StormEvents_2017_Cleaned$Month[StormEvents_2017_Cleaned$END_YEARMONTH=="5/2017"] <- "May"
+StormEvents_2017_Cleaned$Month[StormEvents_2017_Cleaned$END_YEARMONTH=="6/2017"] <- "June"
+StormEvents_2017_Cleaned$Month[StormEvents_2017_Cleaned$END_YEARMONTH=="7/2017"] <- "July"
+StormEvents_2017_Cleaned$Month[StormEvents_2017_Cleaned$END_YEARMONTH=="8/2017"] <- "August"
+StormEvents_2017_Cleaned$Month[StormEvents_2017_Cleaned$END_YEARMONTH=="9/2017"] <- "September"
+StormEvents_2017_Cleaned$Month[StormEvents_2017_Cleaned$END_YEARMONTH=="10/2017"] <- "October"
+StormEvents_2017_Cleaned$Month[StormEvents_2017_Cleaned$END_YEARMONTH=="11/2017"] <- "November"
+StormEvents_2017_Cleaned$Month[StormEvents_2017_Cleaned$END_YEARMONTH=="12/2017"] <- "December"
+
+StormEvents_2018_Cleaned$Month[StormEvents_2018_Cleaned$END_YEARMONTH=="1/2018"] <- "January"
+StormEvents_2018_Cleaned$Month[StormEvents_2018_Cleaned$END_YEARMONTH=="2/2018"] <- "February"
+StormEvents_2018_Cleaned$Month[StormEvents_2018_Cleaned$END_YEARMONTH=="3/2018"] <- "March"
+StormEvents_2018_Cleaned$Month[StormEvents_2018_Cleaned$END_YEARMONTH=="4/2018"] <- "April"
+StormEvents_2018_Cleaned$Month[StormEvents_2018_Cleaned$END_YEARMONTH=="5/2018"] <- "May"
+StormEvents_2018_Cleaned$Month[StormEvents_2018_Cleaned$END_YEARMONTH=="6/2018"] <- "June"
+StormEvents_2018_Cleaned$Month[StormEvents_2018_Cleaned$END_YEARMONTH=="7/2018"] <- "July"
+StormEvents_2018_Cleaned$Month[StormEvents_2018_Cleaned$END_YEARMONTH=="8/2018"] <- "August"
+StormEvents_2018_Cleaned$Month[StormEvents_2018_Cleaned$END_YEARMONTH=="9/2018"] <- "September"
+StormEvents_2018_Cleaned$Month[StormEvents_2018_Cleaned$END_YEARMONTH=="10/2018"] <- "October"
+StormEvents_2018_Cleaned$Month[StormEvents_2018_Cleaned$END_YEARMONTH=="11/2018"] <- "November"
+StormEvents_2018_Cleaned$Month[StormEvents_2018_Cleaned$END_YEARMONTH=="12/2018"] <- "December"
+
+```
+
+``` {r #Filter States}
+# Filter Weather Data
+
+StormEvents_2004_Cleaned <- StormEvents_2004_Cleaned %>%
+        filter(EVENT_TYPE == c("Excessive Heat", "Heat", "Flash Flood", "Flood", "Heavy Rain", "Hurricane", "Drought", "Tropical Storm", "Blizzard"))
+
+StormEvents_2005_Cleaned <- StormEvents_2005_Cleaned %>%
+        filter(EVENT_TYPE == c("Excessive Heat", "Heat", "Flash Flood", "Flood", "Heavy Rain", "Hurricane", "Drought", "Tropical Storm", "Blizzard"))
+StormEvents_2006_Cleaned <- StormEvents_2006_Cleaned %>%
+        filter(EVENT_TYPE == c("Excessive Heat", "Heat", "Flash Flood", "Flood", "Heavy Rain", "Hurricane", "Drought", "Tropical Storm", "Blizzard"))
+StormEvents_2007_Cleaned <- StormEvents_2007_Cleaned %>%
+        filter(EVENT_TYPE == c("Excessive Heat", "Heat", "Flash Flood", "Flood", "Heavy Rain", "Hurricane", "Drought", "Tropical Storm", "Blizzard"))
+StormEvents_2008_Cleaned <- StormEvents_2008_Cleaned %>%
+        filter(EVENT_TYPE == c("Excessive Heat", "Heat", "Flash Flood", "Flood", "Heavy Rain", "Hurricane", "Drought", "Tropical Storm", "Blizzard"))
+StormEvents_2009_Cleaned <- StormEvents_2009_Cleaned %>%
+        filter(EVENT_TYPE == c("Excessive Heat", "Heat", "Flash Flood", "Flood", "Heavy Rain", "Hurricane", "Drought", "Tropical Storm", "Blizzard"))
+StormEvents_2010_Cleaned <- StormEvents_2010_Cleaned %>%
+        filter(EVENT_TYPE == c("Excessive Heat", "Heat", "Flash Flood", "Flood", "Heavy Rain", "Hurricane", "Drought", "Tropical Storm", "Blizzard"))
+StormEvents_2011_Cleaned <- StormEvents_2011_Cleaned %>%
+        filter(EVENT_TYPE == c("Excessive Heat", "Heat", "Flash Flood", "Flood", "Heavy Rain", "Hurricane", "Drought", "Tropical Storm", "Blizzard"))
+StormEvents_2012_Cleaned <- StormEvents_2012_Cleaned %>%
+        filter(EVENT_TYPE == c("Excessive Heat", "Heat", "Flash Flood", "Flood", "Heavy Rain", "Hurricane", "Drought", "Tropical Storm", "Blizzard"))
+StormEvents_2013_Cleaned <- StormEvents_2013_Cleaned %>%
+        filter(EVENT_TYPE == c("Excessive Heat", "Heat", "Flash Flood", "Flood", "Heavy Rain", "Hurricane", "Drought", "Tropical Storm", "Blizzard"))
+StormEvents_2014_Cleaned <- StormEvents_2014_Cleaned %>%
+        filter(EVENT_TYPE == c("Excessive Heat", "Heat", "Flash Flood", "Flood", "Heavy Rain", "Hurricane", "Drought", "Tropical Storm", "Blizzard"))
+StormEvents_2015_Cleaned <- StormEvents_2015_Cleaned %>%
+        filter(EVENT_TYPE == c("Excessive Heat", "Heat", "Flash Flood", "Flood", "Heavy Rain", "Hurricane", "Drought", "Tropical Storm", "Blizzard"))
+StormEvents_2016_Cleaned <- StormEvents_2016_Cleaned %>%
+        filter(EVENT_TYPE == c("Excessive Heat", "Heat", "Flash Flood", "Flood", "Heavy Rain", "Hurricane", "Drought", "Tropical Storm", "Blizzard"))
+StormEvents_2017_Cleaned <- StormEvents_2017_Cleaned %>%
+        filter(EVENT_TYPE == c("Excessive Heat", "Heat", "Flash Flood", "Flood", "Heavy Rain", "Hurricane", "Drought", "Tropical Storm", "Blizzard"))
+```
+
+
+```{r}
+# 2004
+
+extreme_counts_2004 = count(StormEvents_2004_Cleaned, c("STATE", "Month"))
+
+extreme_counts_2004$Month <- paste("2004", extreme_counts_2004$Month, sep="/")
+
+data_wide_2004 <- spread(extreme_counts_2004, STATE, freq)
+
+extreme_counts_2005 = count(StormEvents_2005_Cleaned, c("STATE", "Month"))
+
+extreme_counts_2005$Month <- paste("2005", extreme_counts_2005$Month, sep="/")
+
+extreme_counts_2006 = count(StormEvents_2006_Cleaned, c("STATE", "Month"))
+
+extreme_counts_2006$Month <- paste("2006", extreme_counts_2006$Month, sep="/")
+
+extreme_counts_2007 = count(StormEvents_2007_Cleaned, c("STATE", "Month"))
+
+extreme_counts_2007$Month <- paste("2007", extreme_counts_2007$Month, sep="/")
+
+extreme_counts_2008 = count(StormEvents_2008_Cleaned, c("STATE", "Month"))
+
+extreme_counts_2008$Month <- paste("2008", extreme_counts_2008$Month, sep="/")
+
+extreme_counts_2009 = count(StormEvents_2009_Cleaned, c("STATE", "Month"))
+
+extreme_counts_2009$Month <- paste("2009", extreme_counts_2009$Month, sep="/")
+
+extreme_counts_2010 = count(StormEvents_2010_Cleaned, c("STATE", "Month"))
+
+extreme_counts_2010$Month <- paste("2010", extreme_counts_2010$Month, sep="/")
+
+extreme_counts_2011 = count(StormEvents_2011_Cleaned, c("STATE", "Month"))
+
+extreme_counts_2011$Month <- paste("2011", extreme_counts_2011$Month, sep="/")
+
+extreme_counts_2012 = count(StormEvents_2012_Cleaned, c("STATE", "Month"))
+
+extreme_counts_2012$Month <- paste("2012", extreme_counts_2012$Month, sep="/")
+
+extreme_counts_2013 = count(StormEvents_2013_Cleaned, c("STATE", "Month"))
+
+extreme_counts_2013$Month <- paste("2013", extreme_counts_2013$Month, sep="/")
+
+extreme_counts_2014 = count(StormEvents_2014_Cleaned, c("STATE", "Month"))
+
+extreme_counts_2014$Month <- paste("2014", extreme_counts_2014$Month, sep="/")
+
+extreme_counts_2015 = count(StormEvents_2015_Cleaned, c("STATE", "Month"))
+
+extreme_counts_2015$Month <- paste("2015", extreme_counts_2015$Month, sep="/")
+
+extreme_counts_2016 = count(StormEvents_2016_Cleaned, c("STATE", "Month"))
+
+extreme_counts_2016$Month <- paste("2016", extreme_counts_2016$Month, sep="/")
+
+extreme_counts_2017 = count(StormEvents_2017_Cleaned, c("STATE", "Month"))
+
+extreme_counts_2017$Month <- paste("2017", extreme_counts_2017$Month, sep="/")
+
+data_wide_2005 <- spread(extreme_counts_2005, STATE, freq)
+data_wide_2006 <- spread(extreme_counts_2006, STATE, freq)
+data_wide_2007 <- spread(extreme_counts_2007, STATE, freq)
+data_wide_2008 <- spread(extreme_counts_2008, STATE, freq)
+data_wide_2009 <- spread(extreme_counts_2009, STATE, freq)
+data_wide_2010 <- spread(extreme_counts_2010, STATE, freq)
+data_wide_2011 <- spread(extreme_counts_2011, STATE, freq)
+data_wide_2012 <- spread(extreme_counts_2012, STATE, freq)
+data_wide_2013 <- spread(extreme_counts_2013, STATE, freq)
+data_wide_2014 <- spread(extreme_counts_2014, STATE, freq)
+data_wide_2015 <- spread(extreme_counts_2015, STATE, freq)
+data_wide_2016 <- spread(extreme_counts_2016, STATE, freq)
+data_wide_2017 <- spread(extreme_counts_2017, STATE, freq)
+
+All_extreme <- rbind.fill(data_wide_2004, data_wide_2005, data_wide_2006, data_wide_2007, data_wide_2008, data_wide_2009, data_wide_2010, data_wide_2011, data_wide_2012, data_wide_2013, data_wide_2014, data_wide_2015, data_wide_2016, data_wide_2017)
+
+
+all_wide <- read.csv("woopwoop.csv", stringsAsFactors = FALSE)
+data_long <- gather(all_wide, STATE, freq, ALABAMA:WYOMING, factor_key=TRUE)
+
+data_long$Month <- paste(data_long$Month,"/01",sep="")
+data_long$Month <- as.Date(data_long$Month, format = "%Y/%B/%d")
+
+write.csv(data_long, "woop3.csv")
+
+# 2005 
+extreme_counts_2005 = count(StormEvents_2005_Cleaned, c("STATE", "EVENT_TYPE"))
+
+lol <- extreme_counts_2005 %>%
+  filter(EVENT_TYPE %in% target)
+
+state_aggregate2005 = aggregate(freq ~ STATE, data = lol, sum)
+
+
+
+
+#2006
+extreme_counts_2006 = count(StormEvents_2006_Cleaned, c("STATE", "EVENT_TYPE"))
+
+lol <- extreme_counts_2006 %>%
+  filter(EVENT_TYPE %in% target)
+
+state_aggregate2006 = aggregate(freq ~ STATE, data = lol, sum)
+
+
+
+
+#2007 
+
+extreme_counts_2007 = count(StormEvents_2007_Cleaned, c("STATE", "EVENT_TYPE"))
+
+lol <- extreme_counts_2007 %>%
+  filter(EVENT_TYPE %in% target)
+
+state_aggregate2007 = aggregate(freq ~ STATE, data = lol, sum)
+
+
+
+# 2008
+extreme_counts_2008 = count(StormEvents_2008_Cleaned, c("STATE", "EVENT_TYPE"))
+
+lol <- extreme_counts_2008 %>%
+  filter(EVENT_TYPE %in% target)
+
+state_aggregate2008 = aggregate(freq ~ STATE, data = lol, sum)
+
+
+# 2009
+
+extreme_counts_2009 = count(StormEvents_2009_Cleaned, c("STATE", "EVENT_TYPE"))
+
+lol <- extreme_counts_2009 %>%
+  filter(EVENT_TYPE %in% target)
+
+state_aggregate2009 = aggregate(freq ~ STATE, data = lol, sum)
+
+# 2010
+extreme_counts_2010 = count(StormEvents_2010_Cleaned, c("STATE", "EVENT_TYPE"))
+
+lol <- extreme_counts_2010 %>%
+  filter(EVENT_TYPE %in% target)
+
+state_aggregate2010 = aggregate(freq ~ STATE, data = lol, sum)
+
+#2011
+extreme_counts_2011 = count(StormEvents_2011_Cleaned, c("STATE", "EVENT_TYPE"))
+
+lol <- extreme_counts_2011 %>%
+  filter(EVENT_TYPE %in% target)
+
+state_aggregate2011 = aggregate(freq ~ STATE, data = lol, sum)
+
+#2012
+extreme_counts_2012 = count(StormEvents_2012_Cleaned, c("STATE", "EVENT_TYPE"))
+
+lol <- extreme_counts_2012 %>%
+  filter(EVENT_TYPE %in% target)
+
+state_aggregate2012 = aggregate(freq ~ STATE, data = lol, sum)
+
+#2013
+
+extreme_counts_2013 = count(StormEvents_2013_Cleaned, c("STATE", "EVENT_TYPE"))
+
+lol <- extreme_counts_2013 %>%
+  filter(EVENT_TYPE %in% target)
+
+state_aggregate2013 = aggregate(freq ~ STATE, data = lol, sum)
+
+#2014 
+extreme_counts_2014 = count(StormEvents_2014_Cleaned, c("STATE", "EVENT_TYPE"))
+
+lol <- extreme_counts_2014 %>%
+  filter(EVENT_TYPE %in% target)
+
+state_aggregate2014 = aggregate(freq ~ STATE, data = lol, sum)
+
+#2015
+extreme_counts_2015 = count(StormEvents_2015_Cleaned, c("STATE", "EVENT_TYPE"))
+
+lol <- extreme_counts_2015 %>%
+  filter(EVENT_TYPE %in% target)
+
+state_aggregate2015 = aggregate(freq ~ STATE, data = lol, sum)
+
+#2016
+extreme_counts_2016 = count(StormEvents_2016_Cleaned, c("STATE", "EVENT_TYPE"))
+
+lol <- extreme_counts_2016 %>%
+  filter(EVENT_TYPE %in% target)
+
+state_aggregate2016 = aggregate(freq ~ STATE, data = lol, sum)
+
+#2017
+extreme_counts_2017 = count(StormEvents_2017_Cleaned, c("STATE", "EVENT_TYPE"))
+
+lol <- extreme_counts_2017 %>%
+  filter(EVENT_TYPE %in% target)
+
+state_aggregate2017 = aggregate(freq ~ STATE, data = lol, sum)
+
+#2018
+extreme_counts_2018 = count(StormEvents_2018_Cleaned, c("STATE", "EVENT_TYPE"))
+
+lol <- extreme_counts_2018 %>%
+  filter(EVENT_TYPE %in% target)
+
+state_aggregate2018 = aggregate(freq ~ STATE, data = lol, sum)
+
+# Remove Non-States
+## 2004
+extreme_counts_2004 <- extreme_counts_2004[!extreme_counts_2004$STATE == "PUERTO RICO", ]
+extreme_counts_2004 <- extreme_counts_2004[!extreme_counts_2004$STATE == "GUAM", ]
+extreme_counts_2004 <- extreme_counts_2004[!extreme_counts_2004$STATE == "DISTRICT OF COLUMBIA", ]
+extreme_counts_2004 <- extreme_counts_2004[!extreme_counts_2004$STATE == "VIRGIN ISLANDS", ]
+extreme_counts_2004 <- extreme_counts_2004[!extreme_counts_2004$STATE == "AMERICAN SAMOA", ]
+
+## 2005
+extreme_counts_2005 <- extreme_counts_2005[!extreme_counts_2005$STATE == "PUERTO RICO", ]
+extreme_counts_2005 <- extreme_counts_2005[!extreme_counts_2005$STATE == "GUAM", ]
+extreme_counts_2005 <- extreme_counts_2005[!extreme_counts_2005$STATE == "DISTRICT OF COLUMBIA", ]
+extreme_counts_2005 <- extreme_counts_2005[!extreme_counts_2005$STATE == "VIRGIN ISLANDS", ]
+extreme_counts_2005 <- extreme_counts_2005[!extreme_counts_2005$STATE == "AMERICAN SAMOA", ]
+
+## 2006
+extreme_counts_2006 <- extreme_counts_2006[!extreme_counts_2006$STATE == "PUERTO RICO", ]
+extreme_counts_2006 <- extreme_counts_2006[!extreme_counts_2006$STATE == "GUAM", ]
+extreme_counts_2006 <- extreme_counts_2006[!extreme_counts_2006$STATE == "DISTRICT OF COLUMBIA", ]
+extreme_counts_2006 <- extreme_counts_2006[!extreme_counts_2006$STATE == "VIRGIN ISLANDS", ]
+extreme_counts_2006 <- extreme_counts_2006[!extreme_counts_2006$STATE == "AMERICAN SAMOA", ]
+
+## 2007
+extreme_counts_2007 <- extreme_counts_2007[!extreme_counts_2007$STATE == "PUERTO RICO", ]
+extreme_counts_2007 <- extreme_counts_2007[!extreme_counts_2007$STATE == "GUAM", ]
+extreme_counts_2007 <- extreme_counts_2007[!extreme_counts_2007$STATE == "DISTRICT OF COLUMBIA", ]
+extreme_counts_2007 <- extreme_counts_2007[!extreme_counts_2007$STATE == "VIRGIN ISLANDS", ]
+extreme_counts_2007 <- extreme_counts_2007[!extreme_counts_2007$STATE == "AMERICAN SAMOA", ]
+
+## 2004
+extreme_counts_2008 <- extreme_counts_2008[!extreme_counts_2008$STATE == "PUERTO RICO", ]
+extreme_counts_2008 <- extreme_counts_2008[!extreme_counts_2008$STATE == "GUAM", ]
+extreme_counts_2008 <- extreme_counts_2008[!extreme_counts_2008$STATE == "DISTRICT OF COLUMBIA", ]
+extreme_counts_2008 <- extreme_counts_2008[!extreme_counts_2008$STATE == "VIRGIN ISLANDS", ]
+extreme_counts_2008 <- extreme_counts_2008[!extreme_counts_2008$STATE == "AMERICAN SAMOA", ]
+
+## 2004
+extreme_counts_2009 <- extreme_counts_2009[!extreme_counts_2009$STATE == "PUERTO RICO", ]
+extreme_counts_2009 <- extreme_counts_2009[!extreme_counts_2009$STATE == "GUAM", ]
+extreme_counts_2009 <- extreme_counts_2009[!extreme_counts_2009$STATE == "DISTRICT OF COLUMBIA", ]
+extreme_counts_2009 <- extreme_counts_2009[!extreme_counts_2009$STATE == "VIRGIN ISLANDS", ]
+extreme_counts_2009 <- extreme_counts_2009[!extreme_counts_2009$STATE == "AMERICAN SAMOA", ]
+
+## 2004
+extreme_counts_2010 <- extreme_counts_2010[!extreme_counts_2010$STATE == "PUERTO RICO", ]
+extreme_counts_2010 <- extreme_counts_2010[!extreme_counts_2010$STATE == "GUAM", ]
+extreme_counts_2010 <- extreme_counts_2010[!extreme_counts_2010$STATE == "DISTRICT OF COLUMBIA", ]
+extreme_counts_2010 <- extreme_counts_2010[!extreme_counts_2010$STATE == "VIRGIN ISLANDS", ]
+extreme_counts_2010 <- extreme_counts_2010[!extreme_counts_2010$STATE == "AMERICAN SAMOA", ]
+
+## 2004
+extreme_counts_2011 <- extreme_counts_2011[!extreme_counts_2011$STATE == "PUERTO RICO", ]
+extreme_counts_2011 <- extreme_counts_2011[!extreme_counts_2011$STATE == "GUAM", ]
+extreme_counts_2011 <- extreme_counts_2011[!extreme_counts_2011$STATE == "DISTRICT OF COLUMBIA", ]
+extreme_counts_2011 <- extreme_counts_2011[!extreme_counts_2011$STATE == "VIRGIN ISLANDS", ]
+extreme_counts_2011 <- extreme_counts_2011[!extreme_counts_2011$STATE == "AMERICAN SAMOA", ]
+
+## 2004
+extreme_counts_2012 <- extreme_counts_2012[!extreme_counts_2012$STATE == "PUERTO RICO", ]
+extreme_counts_2012 <- extreme_counts_2012[!extreme_counts_2012$STATE == "GUAM", ]
+extreme_counts_2012 <- extreme_counts_2012[!extreme_counts_2012$STATE == "DISTRICT OF COLUMBIA", ]
+extreme_counts_2012 <- extreme_counts_2012[!extreme_counts_2012$STATE == "VIRGIN ISLANDS", ]
+extreme_counts_2012 <- extreme_counts_2012[!extreme_counts_2012$STATE == "AMERICAN SAMOA", ]
+
+## 2004
+extreme_counts_2013 <- extreme_counts_2013[!extreme_counts_2013$STATE == "PUERTO RICO", ]
+extreme_counts_2013 <- extreme_counts_2013[!extreme_counts_2013$STATE == "GUAM", ]
+extreme_counts_2013 <- extreme_counts_2013[!extreme_counts_2013$STATE == "DISTRICT OF COLUMBIA", ]
+extreme_counts_2013 <- extreme_counts_2013[!extreme_counts_2013$STATE == "VIRGIN ISLANDS", ]
+extreme_counts_2013 <- extreme_counts_2013[!extreme_counts_2013$STATE == "AMERICAN SAMOA", ]
+
+## 2004
+extreme_counts_2014 <- extreme_counts_2014[!extreme_counts_2014$STATE == "PUERTO RICO", ]
+extreme_counts_2014 <- extreme_counts_2014[!extreme_counts_2014$STATE == "GUAM", ]
+extreme_counts_2014 <- extreme_counts_2014[!extreme_counts_2014$STATE == "DISTRICT OF COLUMBIA", ]
+extreme_counts_2014 <- extreme_counts_2014[!extreme_counts_2014$STATE == "VIRGIN ISLANDS", ]
+extreme_counts_2014 <- extreme_counts_2014[!extreme_counts_2014$STATE == "AMERICAN SAMOA", ]
+
+## 2004
+extreme_counts_2015 <- extreme_counts_2015[!extreme_counts_2015$STATE == "PUERTO RICO", ]
+extreme_counts_2015 <- extreme_counts_2015[!extreme_counts_2015$STATE == "GUAM", ]
+extreme_counts_2015 <- extreme_counts_2015[!extreme_counts_2015$STATE == "DISTRICT OF COLUMBIA", ]
+extreme_counts_2015 <- extreme_counts_2015[!extreme_counts_2015$STATE == "VIRGIN ISLANDS", ]
+extreme_counts_2015 <- extreme_counts_2015[!extreme_counts_2015$STATE == "AMERICAN SAMOA", ]
+
+## 2004
+extreme_counts_2016 <- extreme_counts_2016[!extreme_counts_2016$STATE == "PUERTO RICO", ]
+extreme_counts_2016 <- extreme_counts_2016[!extreme_counts_2016$STATE == "GUAM", ]
+extreme_counts_2016 <- extreme_counts_2016[!extreme_counts_2016$STATE == "DISTRICT OF COLUMBIA", ]
+extreme_counts_2016 <- extreme_counts_2016[!extreme_counts_2016$STATE == "VIRGIN ISLANDS", ]
+extreme_counts_2016 <- extreme_counts_2016[!extreme_counts_2016$STATE == "AMERICAN SAMOA", ]
+
+## 2004
+extreme_counts_2017 <- extreme_counts_2017[!extreme_counts_2017$STATE == "PUERTO RICO", ]
+extreme_counts_2017 <- extreme_counts_2017[!extreme_counts_2017$STATE == "GUAM", ]
+extreme_counts_2017 <- extreme_counts_2017[!extreme_counts_2017$STATE == "DISTRICT OF COLUMBIA", ]
+extreme_counts_2017 <- extreme_counts_2017[!extreme_counts_2017$STATE == "VIRGIN ISLANDS", ]
+extreme_counts_2017 <- extreme_counts_2017[!extreme_counts_2017$STATE == "AMERICAN SAMOA", ]
+```
+
+```{r #Graph States}
+
+state_counts <- state_aggregate2004 %>% #By state
+  left_join(state_aggregate2005, by = "STATE") %>%
+  left_join(state_aggregate2006, by = "STATE") %>%
+  left_join(state_aggregate2007, by = "STATE") %>%
+  left_join(state_aggregate2008, by = "STATE") %>%
+  left_join(state_aggregate2009, by = "STATE") %>%
+  left_join(state_aggregate2010, by = "STATE") %>%
+  left_join(state_aggregate2011, by = "STATE") %>%
+  left_join(state_aggregate2012, by = "STATE") %>%
+  left_join(state_aggregate2013, by = "STATE") %>%
+  left_join(state_aggregate2014, by = "STATE") %>%
+  left_join(state_aggregate2015, by = "STATE") %>%
+  left_join(state_aggregate2016, by = "STATE") %>%
+  left_join(state_aggregate2017, by = "STATE") 
+  
+
+state_counts <- state_aggregate2004 %>% #By state
+  left_join(statestate_aggregate2005, by = "STATE") 
+  left_join(state_aggregate2006, by = "STATE") %>%
+  left_join(state_aggregate2007, by = "STATE") %>%
+  left_join(state_aggregate2008, by = "STATE") %>%
+  left_join(state_aggregate2009, by = "STATE") %>%
+  left_join(state_aggregate2010, by = "STATE") %>%
+  left_join(state_aggregate2011, by = "STATE") %>%
+  left_join(state_aggregate2012, by = "STATE") %>%
+  left_join(state_aggregate2013, by = "STATE") %>%
+  left_join(state_aggregate2014, by = "STATE") %>%
+  left_join(state_aggregate2015, by = "STATE") %>%
+  left_join(state_aggregate2016, by = "STATE") %>%
+  left_join(state_aggregate2017, by = "STATE") 
+
+
+
+state_counts$sum <- state_counts$freq.x.x.x.x.x.x.x + state_counts$freq.y.y.y.y.y.y.y + state_counts$freq.x.x.x.x.x.x + state_counts$freq.x.x.x.x.x + state_counts$freq.x.x.x.x + state_counts$freq.x.x.x + state_counts$freq.x.x + state_counts$freq.x + state_counts$freq.y.y.y.y.y.y + state_counts$freq.y.y.y.y.y + state_counts$freq.y.y.y.y + state_counts$freq.y.y.y + state_counts$freq.y.y + state_counts$freq.y
+
+State_Counts_Final <- state_counts %>%
+  select(1, 16)
+
+state_counts_graph_high <- State_Counts_Final[order(State_Counts_Final$sum, decreasing = TRUE),]
+state_counts_graph_low <- State_Counts_Final[order(State_Counts_Final$sum),]
+
+state_counts_graph_high <- state_counts_graph_high %>%
+  slice(1:15)
+state_counts_graph_low <- state_counts_graph_low %>%
+  slice(1:15)
+
+
+```
+
+```{r Month}
+extreme_month_counts_2004 = count(StormEvents_2004_Cleaned, c("Month", "STATE"))
+
+
+
+
+extreme_month_counts_2005 = count(StormEvents_2005_Cleaned, c("STATE", "Month"))
+month_2005 = aggregate(freq ~ Month, data = extreme_month_counts_2005, sum)
+
+extreme_month_counts_2006 = count(StormEvents_2006_Cleaned, c("STATE", "Month"))
+month_2006 = aggregate(freq ~ Month, data = extreme_month_counts_2006, sum)
+
+extreme_month_counts_2007 = count(StormEvents_2007_Cleaned, c("STATE", "Month"))
+month_2007 = aggregate(freq ~ Month, data = extreme_month_counts_2007, sum)
+
+extreme_month_counts_2008 = count(StormEvents_2008_Cleaned, c("STATE", "Month"))
+month_2008 = aggregate(freq ~ Month, data = extreme_month_counts_2008, sum)
+
+extreme_month_counts_2009 = count(StormEvents_2009_Cleaned, c("STATE", "Month"))
+month_2009 = aggregate(freq ~ Month, data = extreme_month_counts_2009, sum)
+
+extreme_month_counts_2010 = count(StormEvents_2010_Cleaned, c("STATE", "Month"))
+month_2010 = aggregate(freq ~ Month, data = extreme_month_counts_2010, sum)
+
+extreme_month_counts_2011 = count(StormEvents_2011_Cleaned, c("STATE", "Month"))
+month_2011 = aggregate(freq ~ Month, data = extreme_month_counts_2011, sum)
+
+extreme_month_counts_2012 = count(StormEvents_2012_Cleaned, c("STATE", "Month"))
+month_2012 = aggregate(freq ~ Month, data = extreme_month_counts_2012, sum)
+
+extreme_month_counts_2013 = count(StormEvents_2013_Cleaned, c("STATE", "Month"))
+month_2013 = aggregate(freq ~ Month, data = extreme_month_counts_2013, sum)
+
+extreme_month_counts_2014 = count(StormEvents_2014_Cleaned, c("STATE", "Month"))
+month_2014 = aggregate(freq ~ Month, data = extreme_month_counts_2014, sum)
+
+extreme_month_counts_2015 = count(StormEvents_2015_Cleaned, c("STATE", "Month"))
+month_2015 = aggregate(freq ~ Month, data = extreme_month_counts_2015, sum)
+
+extreme_month_counts_2016 = count(StormEvents_2016_Cleaned, c("STATE", "Month"))
+month_2016 = aggregate(freq ~ Month, data = extreme_month_counts_2016, sum)
+
+extreme_month_counts_2017 = count(StormEvents_2017_Cleaned, c("STATE", "Month"))
+month_2017 = aggregate(freq ~ Month, data = extreme_month_counts_2017, sum)
+
+extreme_countsmonth <- month_2004 %>% #By month
+  left_join(month_2005, by = "Month") %>%
+  left_join(month_2006, by = "Month") %>%
+  left_join(month_2007, by = "Month") %>%
+  left_join(month_2008, by = "Month") %>%
+  left_join(month_2009, by = "Month") %>%
+  left_join(month_2010, by = "Month") %>%
+  left_join(month_2011, by = "Month") %>%
+  left_join(month_2012, by = "Month") %>%
+  left_join(month_2013, by = "Month") %>%
+  left_join(month_2014, by = "Month") %>%
+  left_join(month_2015, by = "Month") %>%
+  left_join(month_2016, by = "Month") %>%
+  left_join(month_2017, by = "Month")
+
+extreme_countsmonth$sum <- extreme_countsmonth$freq.x.x.x.x.x.x.x + extreme_countsmonth$freq.y.y.y.y.y.y.y + extreme_countsmonth$freq.x.x.x.x.x.x + extreme_countsmonth$freq.x.x.x.x.x + extreme_countsmonth$freq.x.x.x.x + extreme_countsmonth$freq.x.x.x + extreme_countsmonth$freq.x.x + extreme_countsmonth$freq.x + extreme_countsmonth$freq.y.y.y.y.y.y + extreme_countsmonth$freq.y.y.y.y.y + extreme_countsmonth$freq.y.y.y.y + extreme_countsmonth$freq.y.y.y + extreme_countsmonth$freq.y.y + extreme_countsmonth$freq.y
+
+Month_Counts_Final <- extreme_countsmonth %>%
+  select(1, 16)
+```
+
+
+```{r}
+
+results_2004 = count(StormEvents_2004_Cleaned, c("STATE", "END_YEARMONTH"))
+resultslol_2004 <- results_2004 %>%
+  filter(EVENT_TYPE %in% target)
+
+results_2005 = count(StormEvents_2005_Cleaned, c("STATE", "END_YEARMONTH"))
+resultslol_2005 <- results_2005 %>%
+  filter(EVENT_TYPE %in% target)
+
+results_2006 = count(StormEvents_2006_Cleaned, c("STATE", "END_YEARMONTH"))
+resultslol_2006 <- results_2006 %>%
+  filter(EVENT_TYPE %in% target)
+
+results_2007 = count(StormEvents_2007_Cleaned, c("STATE", "END_YEARMONTH"))
+resultslol_2007 <- results_2007 %>%
+  filter(EVENT_TYPE %in% target)
+
+results_2008 = count(StormEvents_2008_Cleaned, c("STATE", "END_YEARMONTH"))
+resultslol_2008 <- results_2008 %>%
+  filter(EVENT_TYPE %in% target)
+
+results_2009 = count(StormEvents_2009_Cleaned, c("STATE", "END_YEARMONTH"))
+resultslol_2009 <- results_2009 %>%
+  filter(EVENT_TYPE %in% target)
+
+results_2010 = count(StormEvents_2010_Cleaned, c("STATE", "END_YEARMONTH"))
+resultslol_2010 <- results_2010 %>%
+  filter(EVENT_TYPE %in% target)
+
+results_2011 = count(StormEvents_2011_Cleaned, c("STATE", "END_YEARMONTH"))
+resultslol_2011 <- results_2011 %>%
+  filter(EVENT_TYPE %in% target)
+
+results_2012 = count(StormEvents_2012_Cleaned, c("STATE", "END_YEARMONTH"))
+resultslol_2012 <- results_2012 %>%
+  filter(EVENT_TYPE %in% target)
+
+results_2013 = count(StormEvents_2013_Cleaned, c("STATE", "END_YEARMONTH"))
+resultslol_2013 <- results_2013 %>%
+  filter(EVENT_TYPE %in% target)
+
+results_2014 = count(StormEvents_2014_Cleaned, c("STATE", "END_YEARMONTH"))
+resultslol_2014 <- results_2014 %>%
+  filter(EVENT_TYPE %in% target)
+
+results_2015 = count(StormEvents_2015_Cleaned, c("STATE", "END_YEARMONTH"))
+resultslol_2015 <- results_2015 %>%
+  filter(EVENT_TYPE %in% target)
+
+results_2016 = count(StormEvents_2016_Cleaned, c("STATE", "END_YEARMONTH"))
+resultslol_2016 <- results_2016 %>%
+  filter(EVENT_TYPE %in% target)
+
+results_2017 = count(StormEvents_2017_Cleaned, c("STATE", "END_YEARMONTH"))
+resultslol_2017 <- results_2017 %>%
+  filter(EVENT_TYPE %in% target)
+####
+
+results2004_final = aggregate(freq ~ END_YEARMONTH, data = resultslol_2004, sum)
+results2005_final = aggregate(freq ~ END_YEARMONTH, data = resultslol_2005, sum)
+results2006_final = aggregate(freq ~ END_YEARMONTH, data = resultslol_2006, sum)
+results2007_final = aggregate(freq ~ END_YEARMONTH, data = resultslol_2007, sum)
+results2008_final = aggregate(freq ~ END_YEARMONTH, data = resultslol_2008, sum)
+results2009_final = aggregate(freq ~ END_YEARMONTH, data = resultslol_2009, sum)
+results2010_final = aggregate(freq ~ END_YEARMONTH, data = resultslol_2010, sum)
+results2011_final = aggregate(freq ~ END_YEARMONTH, data = resultslol_2011, sum)
+results2012_final = aggregate(freq ~ END_YEARMONTH, data = resultslol_2012, sum)
+results2013_final = aggregate(freq ~ END_YEARMONTH, data = resultslol_2013, sum)
+results2014_final = aggregate(freq ~ END_YEARMONTH, data = resultslol_2014, sum)
+results2015_final = aggregate(freq ~ END_YEARMONTH, data = resultslol_2015, sum)
+results2016_final = aggregate(freq ~ END_YEARMONTH, data = resultslol_2016, sum)
+results2017_final = aggregate(freq ~ END_YEARMONTH, data = resultslol_2017, sum)
+
+
+
+extreme_countsresults <- rbind(results2004_final, results2005_final, results2006_final, results2007_final, results2008_final, results2009_final, results2010_final, results2011_final, results2012_final, results2013_final, results2014_final, results2015_final, results2016_final, results2017_final)
+
+```
+
+
+```{r}
+woopwoop <- read.csv("final_brehm_data.csv")
+
+
+library(plyr)
+final_woop <- ddply( 
+  woopwoop, .(STATE), transform,
+  # This assumes that the data is sorted
+  Value = c( NA, google_search_climate[-length(google_search_climate)] ) 
+)
+
+colnames(final_woop)[7] <- "lagged_climate_searches"
+
+weepy <-lm(google_search_climate ~ Abnormal_Weather+ lagged_climate_searches+ factor(State_Partisan_Learning), data=final_woop)
+
+summary(weepy)
+
+apsrtable(weepy)
+
+cat(apsrtable(weepy, Sweave = FALSE), file = "ols3.txt")
+levels(final_woop$State_Partisan_Leaning)
+
+
+ggplotRegression <- function (fit) {
+  
+  require(ggplot2)
+  
+  ggplot(fit$model, aes_string(x = names(fit$model)[2], y = names(fit$model)[1])) + 
+    geom_point() +
+    stat_smooth(method = "lm", col = "red") +
+    labs(title = paste("Adj R2 = ",signif(summary(fit)$adj.r.squared, 5),
+                       "Intercept =",signif(fit$coef[[1]],5 ),
+                       " Slope =",signif(fit$coef[[2]], 5),
+                       " P =",signif(summary(fit)$coef[2,4], 5)))
+}
+ggplotRegression(weepy)
+
+
+
+
+# Hoax
+
+final_woop <- ddply( 
+  final_woop, .(STATE), transform,
+  # This assumes that the data is sorted
+  Value = c( NA, google_search_hoax[-length(google_search_hoax)] ) 
+)
+
+colnames(final_woop)[8] <- "lagged_hoax_searches"
+
+weepy2 <-lm(google_search_hoax ~ Abnormal_Weather+ lagged_hoax_searches+ factor(State_Partisan_Learning), data=final_woop)
+
+summary(weepy2)
+
+apsrtable(weepy, weepy2, model.names = c("Climate Change Google Searches", "Climate Change Hoax Google Searches"))
+
+ggplotRegression(weepy)
+ggplotRegression(weepy2)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```
